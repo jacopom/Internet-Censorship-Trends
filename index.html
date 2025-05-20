@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Internet Censorship Trends 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+            background-color: #f4f7f6;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2.5rem 0;
+            margin-bottom: 2rem;
+        }
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 1.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #bdc3c7;
+        }
+        .viz-container {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .viz-caption {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+        .stat-highlight {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .reference {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .tab-content {
+            padding-top: 1.5rem;
+        }
+        .nav-tabs .nav-link {
+            color: #495057;
+        }
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            color: #343a40;
+        }
+        .interactive-controls {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #f1f3f5;
+            border-radius: 4px;
+        }
+        .tooltip-inner {
+            max-width: 300px;
+        }
+        .key-stat {
+            background-color: #eaf0f2;
+            padding: 1.25rem;
+            border-left: 5px solid #e74c3c;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+        .citation {
+            font-size: 0.75rem;
+            vertical-align: super;
+            color: #007bff;
+            cursor: pointer;
+        }
+        #references {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #dee2e6;
+        }
+        .reference-list {
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+        }
+        .severity-scale-container .badge {
+            padding: 0.6em 0.9em;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .badge.level-1, .badge.level-2 {
+            background-color: #16a085;
+            color: white;
+        }
+        .badge.level-3 {
+            background-color: #f39c12;
+            color: white;
+        }
+        .badge.level-4, .badge.level-5 {
+            background-color: #c0392b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1 class="display-4">Global Internet Censorship Trends</h1>
+            <p class="lead">A visual analysis of censorship patterns, blocked content, and regional impacts in 2024</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2 class="section-title">Regional Censorship Intensity</h2>
+            <div class="interactive-controls">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="region-select" class="form-label">Select Region:</label>
+                        <select class="form-select" id="region-select">
+                            <option value="global">Global View</option>
+                            <option value="asia">Asia Pacific</option>
+                            <option value="mena">Middle East & North Africa</option>
+                            <option value="africa">Sub-Saharan Africa</option>
+                            <option value="eurasia">Eurasia</option>
+                            <option value="americas">Americas</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Severity Scale:</label>
+                        <div class="severity-scale-container d-flex flex-wrap gap-2">
+                            <span class="badge level-1">Level 1: Limited restrictions</span>
+                            <span class="badge level-2">Level 2: Single platform blocks</span>
+                            <span class="badge level-3">Level 3: Multiple platform blocks</span>
+                            <span class="badge level-4">Level 4: Blackouts (&lt;24h)</span>
+                            <span class="badge level-5">Level 5: Extended blackouts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="viz-container">
+                <div id="map-container">
+                    <img src="visualizations/global_censorship_heatmap.png" alt="Global Internet Censorship Heat Map" class="img-fluid" id="global-map">
+                    <img src="visualizations/asia_pacific_censorship_heatmap.png" alt="Asia Pacific Internet Censorship Heat Map" class="img-fluid d-none" id="asia-map">
+                    <img src="visualizations/middle_east_north_africa_censorship_heatmap.png" alt="Middle East & North Africa Internet Censorship Heat Map" class="img-fluid d-none" id="mena-map">
+                    <img src="visualizations/sub-saharan_africa_censorship_heatmap.png" alt="Sub-Saharan Africa Internet Censorship Heat Map" class="img-fluid d-none" id="africa-map">
+                    <img src="visualizations/eurasia_censorship_heatmap.png" alt="Eurasia Internet Censorship Heat Map" class="img-fluid d-none" id="eurasia-map">
+                    <img src="visualizations/americas_censorship_heatmap.png" alt="Americas Internet Censorship Heat Map" class="img-fluid d-none" id="americas-map">
+                </div>
+                <div class="viz-caption">
+                    Heat map showing internet censorship intensity based on incident frequency, severity, and population impact. <span class="citation" data-bs-toggle="tooltip" title="Freedom House (2024). Freedom on the Net 2024: The Struggle for Trust Online.">[1]</span>
+                </div>
+            </div>
+            <div class="key-stat">
+                <p>Global internet freedom declined for the <span class="stat-highlight">14th consecutive year</span>, with protections for human rights online diminishing in <span class="stat-highlight">27 of 72</span> countries studied. <span class="citation" data-bs-toggle="tooltip" title="Freedom House (2024). Freedom on the Net 2024: The Struggle for Trust Online.">[1]</span></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Blocked Content Categories</h2>
+            <ul class="nav nav-tabs" id="contentTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="platforms-tab" data-bs-toggle="tab" data-bs-target="#platforms" type="button" role="tab" aria-controls="platforms" aria-selected="true">Top Blocked Platforms</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="regional-tab" data-bs-toggle="tab" data-bs-target="#regional" type="button" role="tab" aria-controls="regional" aria-selected="false">Regional Patterns</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="contentTabsContent">
+                <div class="tab-pane fade show active" id="platforms" role="tabpanel" aria-labelledby="platforms-tab">
+                    <div class="viz-container">
+                        <img src="visualizations/top_blocked_platforms.png" alt="Top 10 Blocked Platforms Globally" class="img-fluid">
+                        <div class="viz-caption">
+                            Bar chart showing the most frequently blocked platforms globally, with number of blocking incidents and countries implementing blocks. <span class="citation" data-bs-toggle="tooltip" title="Access Now (2025). #KeepItOn: Internet Shutdowns in 2024.">[2]</span>
+                        </div>
+                    </div>
+                    <div class="key-stat">
+                        <p>Social media platforms account for <span class="stat-highlight">3 of the top 5</span> most frequently blocked services, with Twitter/X facing <span class="stat-highlight">92 blocking incidents</span> across 34 countries. <span class="citation" data-bs-toggle="tooltip" title="Analysis based on combined data from Freedom House, Access Now, OONI, NetBlocks, and Top10VPN.">[5]</span></p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="regional" role="tabpanel" aria-labelledby="regional-tab">
+                    <div class="viz-container">
+                        <img src="visualizations/platform_blocking_by_region.png" alt="Platform Blocking by Region" class="img-fluid">
+                        <div class="viz-caption">
+                            Heatmap showing platform blocking patterns across different regions. <span class="citation" data-bs-toggle="tooltip" title="Analysis based on combined data from Freedom House, Access Now, OONI, NetBlocks, and Top10VPN.">[5]</span>
+                        </div>
+                    </div>
+                    <div class="key-stat">
+                        <p>Asia Pacific region shows the highest concentration of <span class="stat-highlight">VPN and encryption tool blocking</span>, while the Middle East & North Africa region has the highest rates of <span class="stat-highlight">political and news content blocking</span>. <span class="citation" data-bs-toggle="tooltip" title="OONI/iMAP (2024). State of Internet Censorship in 9 countries.">[3]</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Shutdown Trends & Events</h2>
+            <div class="interactive-controls">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="election-checkbox" checked>
+                            <label class="form-check-label" for="election-checkbox">Election-Related</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="protest-checkbox" checked>
+                            <label class="form-check-label" for="protest-checkbox">Protest-Related</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button class="btn btn-sm btn-outline-secondary" id="zoom-2023">2023</button>
+                        <button class="btn btn-sm btn-outline-secondary" id="zoom-2024">2024</button>
+                        <button class="btn btn-sm btn-outline-secondary" id="zoom-all">All Time</button>
+                    </div>
+                </div>
+            </div>
+            <div class="viz-container">
+                <img src="visualizations/shutdown_timeline.png" alt="Timeline of Election and Protest-Related Internet Shutdowns" class="img-fluid">
+                <div class="viz-caption">
+                    Timeline showing internet shutdowns related to elections and protests from 2023-2024. <span class="citation" data-bs-toggle="tooltip" title="Access Now (2025). #KeepItOn: Internet Shutdowns in 2024.">[2]</span>
+                </div>
+            </div>
+            <div class="viz-container mt-4">
+                <img src="visualizations/shutdown_duration_by_region.png" alt="Average Duration of Internet Shutdowns by Region and Type" class="img-fluid">
+                <div class="viz-caption">
+                    Bar chart comparing the average duration of election-related and protest-related shutdowns across regions. <span class="citation" data-bs-toggle="tooltip" title="Access Now (2025). #KeepItOn: Internet Shutdowns in 2024.">[2]</span>
+                </div>
+            </div>
+            <div class="key-stat">
+                <p>Protest-related shutdowns typically last <span class="stat-highlight">2-3 times longer</span> than election-related ones, with Sub-Saharan Africa experiencing the highest number of election-related shutdowns. <span class="citation" data-bs-toggle="tooltip" title="Analysis based on combined data from Freedom House, Access Now, OONI, NetBlocks, and Top10VPN.">[5]</span></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Emerging Censorship Tactics</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="key-stat">
+                        <h5>Exam-Related Shutdowns</h5>
+                        <p>Countries like Kenya and Iraq implemented targeted platform blocks specifically during national examination periods, primarily affecting messaging apps like Telegram. <span class="citation" data-bs-toggle="tooltip" title="NetBlocks (2024). Internet Observatory Reports.">[4]</span></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="key-stat">
+                        <h5>"Splinternet" Fragmentation</h5>
+                        <p>China, Russia, and Turkey continued developing isolated national internets with comprehensive content restrictions, imposing large fines on VPN users. <span class="citation" data-bs-toggle="tooltip" title="Freedom House (2024). Freedom on the Net 2024: The Struggle for Trust Online.">[1]</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="key-stat">
+                        <h5>Generative AI Restrictions</h5>
+                        <p>New regulations emerged limiting AI tools during election periods, with varying impacts on internet freedom depending on implementation approaches. <span class="citation" data-bs-toggle="tooltip" title="Freedom House (2024). Freedom on the Net 2024: The Struggle for Trust Online.">[1]</span></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="key-stat">
+                        <h5>Cross-Border Censorship</h5>
+                        <p>Increasing instances of one country's censorship affecting neighboring nations, particularly in regions with shared infrastructure. <span class="citation" data-bs-toggle="tooltip" title="OONI/iMAP (2024). State of Internet Censorship in 9 countries.">[3]</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="references">
+            <h4>References</h4>
+            <ol class="reference-list">
+                <li>Freedom House (2024). <em>Freedom on the Net 2024: The Struggle for Trust Online</em>. Retrieved from <a href="https://freedomhouse.org/report/freedom-net/2024">freedomhouse.org</a></li>
+                <li>Access Now (2025). <em>#KeepItOn: Internet Shutdowns in 2024</em>. Retrieved from <a href="https://www.accessnow.org">accessnow.org</a></li>
+                <li>OONI/iMAP (2024). <em>State of Internet Censorship in 9 countries</em>. Retrieved from <a href="https://imap.sinarproject.org/reports/2024">imap.sinarproject.org</a></li>
+                <li>NetBlocks (2024). <em>Internet Observatory Reports</em>. Retrieved from <a href="https://netblocks.org/projects/observatory">netblocks.org</a></li>
+                <li>Analysis based on combined data from Freedom House, Access Now, OONI, NetBlocks, and Top10VPN (2024-2025).</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/interactive.js"></script>
+</body>
+</html>
