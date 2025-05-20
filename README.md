@@ -1,7 +1,8 @@
 # Global Internet Censorship Report 2024
 
 This project presents a visual analysis of global internet censorship trends in 2024, focusing on censorship patterns, commonly blocked content categories, and regional impacts. The report aims to provide insights into the state of internet freedom through various data visualizations.
-Check it [here]([https://duckduckgo.com](https://jacopom.github.io/Internet-Censorship-Trends/)).
+
+Check it [here](https://jacopom.github.io/Internet-Censorship-Trends/)
 
 
 ## 📄 Data Sources
